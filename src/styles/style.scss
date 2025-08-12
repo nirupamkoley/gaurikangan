@@ -131,7 +131,7 @@ header{
     .navbar-brand img{ width: 60%;}
   }
   .search{
-    .form-control{ padding: 0.75rem 1rem 0.75rem 3rem; box-shadow: none !important; border-color: transparent !important; background: #f8f8f8 url(../images/search-icon.png) no-repeat 18px center; font-size: 0.95rem;
+    .form-control{ padding: 0.75rem 1rem 0.75rem 3rem; box-shadow: none !important; border-color: transparent !important; background: #f8f8f8 url(/assets/images/search-icon.png) no-repeat 18px center; font-size: 0.95rem;
         &::placeholder{ color: $gray !important; opacity: 0.8;}
         &:focus{
             border-color: $lightgray !important; background-color: $light;
@@ -326,7 +326,7 @@ header{
 
 .offer-section{
     .offer-wrap{
-        width: 100%; height: 572px; background: url(../images/offer-banner.jpg) no-repeat center top; border-radius: 40px;
+        width: 100%; height: 572px; background: url(/assets/images/offer-banner.jpg) no-repeat center top; border-radius: 40px;
         .caption{
             padding: 4rem; background: rgba(0,0,0,.6); width: 704px; min-height: 440px; border-radius: 40px;
             small{ font-size: 18px !important; font-weight: 300 !important;}
@@ -612,7 +612,7 @@ footer { float: left; width: 100%;
 
 // Login CSS //
 
-.login{ background: #fff url(../images/login-bg.png) no-repeat center top !important; background-size: cover !important; position: relative;
+.login{ background: #fff url(/assets/images/login-bg.png) no-repeat center top !important; background-size: cover !important; position: relative;
     // &::after{ position: absolute; content: ''; width: 100%; height: 130px; background: #fff; bottom: 0; left: 0; right: 0; margin: auto;}
     .card{ position: relative; z-index: 1;}
     .card-body{ padding: 2.5rem !important;
@@ -1543,7 +1543,7 @@ footer { float: left; width: 100%;
 .plus{ border-left: solid 1px #dadadd !important;}
 .small-title{ font-size: 16px; font-weight: 600; position: relative;}
 .small-title.icon{ padding-left: 38px;}
-.small-title.icon:before{ width: 28px; height: 30px; position: absolute; content: ''; background: url(../images/offer-icon.png) no-repeat center center; top: 0; bottom: 0; left: 0; margin: auto;}
+.small-title.icon:before{ width: 28px; height: 30px; position: absolute; content: ''; background: url(/assets/images/offer-icon.png) no-repeat center center; top: 0; bottom: 0; left: 0; margin: auto;}
 #coupone_slider{ margin-top: 20px;}
 .coupone .card-header{ font-size: 13x !important; font-weight: 600; border-bottom: none; position: relative; padding-left: 40px;}
 .coupone .card-header i{ margin-right: 5px; position: absolute; font-size: 18px; left: 15px; margin-top: -2px;}
@@ -1591,8 +1591,8 @@ footer { float: left; width: 100%;
 .delivery{ margin-top: 0;}
 .right-panel .accordion-item:last-child{ border-top: solid 1px #e2e2e2;}
 .p-details{ margin-top: 0;}
-.accordion-button::after{ background-image: url(../images/caret-down-fill.svg); background-size: 13px; width: 13px; height: 13px;}
-.accordion-button:not(.collapsed)::after{ background-image: url(../images/caret-down-fill.svg);}
+.accordion-button::after{ background-image: url(/assets/images/caret-down-fill.svg); background-size: 13px; width: 13px; height: 13px;}
+.accordion-button:not(.collapsed)::after{ background-image: url(/assets/images/caret-down-fill.svg);}
 
 .price{ font-size: 21px;}
 .ratings{ font-size: 13px; color: #7c7c8c; display: flex; align-items: center; gap: 3px;}
