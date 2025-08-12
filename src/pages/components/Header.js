@@ -83,7 +83,7 @@ export default function Header() {
                 { /* Topbar end */}
                 <nav className="navbar navbar-expand-lg" id="navbar_top">
                     <div className="container">
-                        <a className="navbar-brand" href="/"><img src="/assets/images/logo.png" alt="gourikangan" /></a>
+                        <Link className="navbar-brand" href="/"><img src="/assets/images/logo.png" alt="gourikangan" /></Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation"> <span className="navbar-toggler-icon" /></button>
 
                         <div className="collapse navbar-collapse" id="navbarScroll">

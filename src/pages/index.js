@@ -319,7 +319,7 @@ export default function Home({ data }) {
                             <div className="row g-5">
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">New Arrival</div>
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -333,7 +333,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-1.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -355,7 +355,7 @@ export default function Home({ data }) {
                                 </div>
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             { /* <div class="badge dark">New Arrival</div> */}
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -369,7 +369,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-2.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -391,7 +391,7 @@ export default function Home({ data }) {
                                 </div>
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             <div className="badge primary">Popular</div>
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -405,7 +405,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-3.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -427,7 +427,7 @@ export default function Home({ data }) {
                                 </div>
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">Best Seller</div>
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -441,7 +441,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-4.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -467,7 +467,7 @@ export default function Home({ data }) {
                             <div className="row g-5">
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">New Arrival</div>
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -481,7 +481,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-14.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -503,7 +503,7 @@ export default function Home({ data }) {
                                 </div>
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             { /* <div class="badge dark">New Arrival</div> */}
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -517,7 +517,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-15.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -539,7 +539,7 @@ export default function Home({ data }) {
                                 </div>
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             <div className="badge primary">Popular</div>
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -553,7 +553,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-16.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -575,7 +575,7 @@ export default function Home({ data }) {
                                 </div>
                                 <div className="col-lg-3">
                                     <div className="card border-0 rounded-0">
-                                        <a href="product-listing.html" className="card-img">
+                                        <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">Best Seller</div>
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist">
@@ -589,7 +589,7 @@ export default function Home({ data }) {
                                                 </div>
                                             </div>
                                             <img src="assets/images/t-17.jpg" alt="" className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-0 py-4">
                                             <div className="info">
                                                 <h3 className="fs-4">Imitation Ring</h3>
@@ -613,7 +613,7 @@ export default function Home({ data }) {
                         </div>
                     </div>
                     <div className="text-center mt-5">
-                        <a href="/shop" className="btn btn-primary-light rounded-5">View All</a>
+                        <Link href="/shop" className="btn btn-primary-light rounded-5">View All</Link>
                     </div>
                 </div>
             </section>
@@ -645,10 +645,10 @@ export default function Home({ data }) {
                 <div className="container">
                     <div className="row g-5">
                         <div className="col-lg-6">
-                            <a href="#" className="d-block rounded-4 overflow-hidden"><img src="assets/images/offer-3.jpg" className="img-fluid" /></a>
+                            <Link href="#" className="d-block rounded-4 overflow-hidden"><img src="assets/images/offer-3.jpg" className="img-fluid" /></Link>
                         </div>
                         <div className="col-lg-6">
-                            <a href="#" className="d-block rounded-4 overflow-hidden"><img src="assets/images/offer-4.jpg" className="img-fluid" /></a>
+                            <Link href="#" className="d-block rounded-4 overflow-hidden"><img src="assets/images/offer-4.jpg" className="img-fluid" /></Link>
                         </div>
                     </div>
                 </div>
@@ -737,7 +737,7 @@ export default function Home({ data }) {
                     </div>
 
                     <div className="text-center mt-5">
-                        <a href="/shop" className="btn btn-primary">Show more</a>
+                        <Link href="/shop" className="btn btn-primary">Show more</Link>
                     </div>
                 </div>
             </section>
@@ -880,7 +880,7 @@ export default function Home({ data }) {
                         ))}
                     </Slider>
                     <div className="text-center mt-5">
-                        <a href="/shop" className="btn btn-primary-light">View All</a>
+                        <Link href="/shop" className="btn btn-primary-light">View All</Link>
                     </div>
                 </div>
             </section>
@@ -973,7 +973,7 @@ export default function Home({ data }) {
                         ))}
                     </Slider>
                     <div className="text-center mt-5">
-                        <a href="/shop" className="btn btn-primary-light">View All</a>
+                        <Link href="/shop" className="btn btn-primary-light">View All</Link>
                     </div>
                 </div>
             </section>
@@ -990,10 +990,10 @@ export default function Home({ data }) {
                 <div className="container">
                     <div className="row g-5">
                         <div className="col-lg-6">
-                            <a href="#" className="d-block rounded-4 overflow-hidden shadow-lg"><img src="assets/images/offer-1.jpg" className="img-fluid" /></a>
+                            <Link href="#" className="d-block rounded-4 overflow-hidden shadow-lg"><img src="assets/images/offer-1.jpg" className="img-fluid" /></Link>
                         </div>
                         <div className="col-lg-6">
-                            <a href="#" className="d-block rounded-4 overflow-hidden shadow-lg"><img src="assets/images/offer-2.jpg" className="img-fluid" /></a>
+                            <Link href="#" className="d-block rounded-4 overflow-hidden shadow-lg"><img src="assets/images/offer-2.jpg" className="img-fluid" /></Link>
                         </div>
                     </div>
                 </div>
