@@ -19,53 +19,53 @@ document.addEventListener("DOMContentLoaded", function(){
 }); 
 // Navbar Sticky End
 
-$(document).ready(function() {
-	  var owl = $('#banner_slider');
-	  owl.owlCarousel({
-		margin: 0,
-		autoplay:true,
-		dots: true,
-		nav: false,
-		center: false,
-		loop: true,
-		navText : ['<i class="bi bi-chevron-left"></i>','<i class="bi bi-chevron-right"></i>'],
-		autoplayHoverPause:true,
-		responsive: {
-		  0: {
-			items: 1
-		  },
-		  600: {
-			items: 1
-		  },
-		  1000: {
-			items: 1
-		  }
-		}
-	})
+// $(document).ready(function() {
+// 	  var owl = $('#banner_slider');
+// 	  owl.owlCarousel({
+// 		margin: 0,
+// 		autoplay:true,
+// 		dots: true,
+// 		nav: false,
+// 		center: false,
+// 		loop: true,
+// 		navText : ['<i class="bi bi-chevron-left"></i>','<i class="bi bi-chevron-right"></i>'],
+// 		autoplayHoverPause:true,
+// 		responsive: {
+// 		  0: {
+// 			items: 1
+// 		  },
+// 		  600: {
+// 			items: 1
+// 		  },
+// 		  1000: {
+// 			items: 1
+// 		  }
+// 		}
+// 	})
 
-	var owl = $('#collections,#collections-2');
-	  owl.owlCarousel({
-		margin: 50,
-		autoplay:true,
-		dots: false,
-		nav: true,
-		center: false,
-		loop: false,
-		navText : ['<i class="bi bi-chevron-left"></i>','<i class="bi bi-chevron-right"></i>'],
-		autoplayHoverPause:true,
-		responsive: {
-		  0: {
-			items: 2
-		  },
-		  600: {
-			items: 3
-		  },
-		  1000: {
-			items: 4
-		  }
-		}
-	})
-});
+// 	var owl = $('#collections,#collections-2');
+// 	  owl.owlCarousel({
+// 		margin: 50,
+// 		autoplay:true,
+// 		dots: false,
+// 		nav: true,
+// 		center: false,
+// 		loop: false,
+// 		navText : ['<i class="bi bi-chevron-left"></i>','<i class="bi bi-chevron-right"></i>'],
+// 		autoplayHoverPause:true,
+// 		responsive: {
+// 		  0: {
+// 			items: 2
+// 		  },
+// 		  600: {
+// 			items: 3
+// 		  },
+// 		  1000: {
+// 			items: 4
+// 		  }
+// 		}
+// 	})
+// });
 
 //------- Owl Carousel End ---------//
 
