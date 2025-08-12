@@ -4,6 +4,7 @@ import { getPrice, getOtherPrice, addToWishList } from "../../helpers/Helper";
 import Loader from "../components/Loader";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import Link from "next/link";
 
 // fetch api
 // serverside props
@@ -296,7 +297,7 @@ export default function Shop({ data }) {
                             {products.map((product, index) => (
                                 <div className="col-lg-3 col-md-4 col-sm-4 col-6" key={index}>
                                     <div className="card border-0 rounded-5 shadow-lg overflow-hidden">
-                                        <a href={`/shop/${product.slug}`} className="card-img">
+                                        <Link href={`/shop/${product.slug}`} className="card-img">
                                             <div className="badge dark zzprimary">New Arrival</div>
                                             <div className="icons-bar">
                                                 <div className="icon active" title="Wishlist" onClick={() => handleWishlistClick(product.id)}>
@@ -313,13 +314,13 @@ export default function Shop({ data }) {
                                                 src={`${process.env.NEXT_PUBLIC_HOST_URL}${product.featuredimage}`}
                                                 alt={product.name}
                                                 className="img-fluid square-img" />
-                                        </a>
+                                        </Link>
                                         <div className="card-body p-4 py-4">
                                             <div className="info">
-                                                <a href={`/shop/${product.slug}`} className="item-title mb-2">{product.name}</a>
+                                                <Link href={`/shop/${product.slug}`} className="item-title mb-2">{product.name}</Link>
                                                 <div className="d-flex align-items-center justify-content-between py-2 border-bottom mb-3">
                                                     <div className="ratings d-flex align-items-center gap-2">
-                                                        <span><i className="bi bi-star-fill" /> 4.5</span> <a href="#" className="text-muted">548 Reviews</a>
+                                                        <span><i className="bi bi-star-fill" /> 4.5</span> <Link href="#" className="text-muted">548 Reviews</Link>
                                                     </div>
                                                     <div className="text-success pt-2">
 
@@ -340,7 +341,7 @@ export default function Shop({ data }) {
                                                     <strong className="fs-5">  ₹{getPrice(product.mrp, product.discounted_price, product.product_type)}</strong>
                                                 </div>
                                                 <div className="right">
-                                                    <a href={`/shop/${product.slug}`} className="btn btn-success">Buy Now</a>
+                                                    <Link href={`/shop/${product.slug}`} className="btn btn-success">Buy Now</Link>
                                                 </div>
                                             </div>
                                         </div>
