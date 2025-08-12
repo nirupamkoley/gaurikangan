@@ -48,24 +48,20 @@ export default function Footer() {
                                 <div className="link-wrap">
                                     <h5>Contact Us</h5>
                                     <ul>
-                                        <li className="d-flex align-items-center"><i className="bi bi-envelope" /><a href="mailto:byrappasilks@gmail.com">byrappasilk@gmail.com</a></li>
-                                        <li className="d-flex align-items-center"><i className="bi bi-telephone" /><a href="tel:9019391045">9019391045</a></li>
+                                        <li className="d-flex align-items-center"><i className="bi bi-envelope" /><a href="mailto:info@gmail.com">info@gmail.com</a></li>
+                                        <li className="d-flex align-items-center"><i className="bi bi-telephone" /><a href="tel:1234567890">1234567890</a></li>
                                         <li className="d-flex align-items-center"><i className="bi bi-chat-right-text" /><a href="#">Chat with Us</a></li>
                                     </ul>
-                                    <div className="input-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Enter your email" aria-label="Recipient's username" aria-describedby="button-addon2" />
-                                        <button className="btn btn-primary px-4" type="button" id="button-addon2">Subscribe</button>
-                                    </div>
                                 </div>
                             </div>
                             <div className="col-lg-2 col-md-6 col-sm-6">
                                 <div className="link-wrap">
                                     <h5>Follow Us On</h5>
                                     <ul>
-                                        <li className="d-flex align-items-center"><i className="bi bi-facebook" /><a href="https://www.facebook.com/byrappasilk">Facebook</a></li>
-                                        <li className="d-flex align-items-center"><i className="bi bi-instagram" /><a href="https://www.instagram.com/byrappasilks/">Instagram</a></li>
-                                        {/* <li className="d-flex align-items-center"><i className="bi bi-youtube" /><a href="#">Youtube</a></li>
-                                        <li className="d-flex align-items-center"><i className="bi bi-linkedin" /><a href="#">Linkedin</a></li> */}
+                                        <li className="d-flex align-items-center"><i className="bi bi-facebook" /><a href="#">Facebook</a></li>
+                                        <li className="d-flex align-items-center"><i className="bi bi-instagram" /><a href="#">Instagram</a></li>
+                                        <li className="d-flex align-items-center"><i className="bi bi-youtube" /><a href="#">Youtube</a></li>
+                                        <li className="d-flex align-items-center"><i className="bi bi-linkedin" /><a href="#">Linkedin</a></li>
                                     </ul>
                                 </div>
                             </div>
