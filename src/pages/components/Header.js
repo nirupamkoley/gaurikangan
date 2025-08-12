@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getTotalCartItem } from '../../helpers/Helper';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Header() {
     const [searchQuery, setSearchQuery] = useState("");
