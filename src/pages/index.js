@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { getPrice, getOtherPrice, addToWishList } from "../helpers/Helper";
+import { getPrice, getOtherPrice, addToWishList, addToCart } from "../helpers/Helper";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,18 +34,20 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ data }) {
-    // console.log("Home data", data);
+
     const [banners, setBanners] = React.useState(data.banner);
+    const [recomendedproducts, setRecomendedproducts] = React.useState(data.new_arrivals);
+    const [topbrandproducts, setTopbrandproducts] = React.useState(data.new_arrivals);
     const [collections, setCollections] = React.useState(data.new_arrivals);
-    const [featured, setFeatured] = React.useState(data.randomSraeeProducts);
+    const [featuredProducts, setFeaturedProducts] = React.useState(data.randomSraeeProducts);
     const [category, setCategory] = React.useState(data.categories);
 
     var settings = {
-        dots: false,
+        dots: true,
         infinite: true,
         arrows: true,
         speed: 300,
-        slidesToShow: 4,
+        slidesToShow: 1,
         slidesToScroll: 1,
         responsive: [
             {
@@ -85,7 +87,7 @@ export default function Home({ data }) {
 
 
     const getSliderSettings = (sldnm, sldnm2, inslm) => ({
-        dots: false,
+        dots: true,
         arrows: false,
         infinite: true,
         speed: 200,
@@ -141,6 +143,46 @@ export default function Home({ data }) {
             Swal.fire({
                 icon: "error",
                 title: wishlist.message[0],
+            });
+        }
+    };
+
+    const handleAddToCart = (product) => {
+        if (!product.stock || product.stock < 1) {
+            Swal.fire({
+                icon: "error",
+                title: "Product is out of stock!",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            return;
+        }
+
+        const quantity = 1;
+        const price = getPrice(product.mrp, product.discounted_price, product.product_type);
+
+        const result = addToCart(
+            product.id,
+            product.vendor_id || "",
+            price,
+            quantity,
+            null,
+            null
+        );
+
+        if (result !== false) {
+            Swal.fire({
+                icon: "success",
+                title: `${product.name} added to cart!`,
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Failed to add product to cart!",
+                showConfirmButton: false,
+                timer: 1500,
             });
         }
     };
@@ -582,60 +624,18 @@ export default function Home({ data }) {
             <section className="fluid-block fluid-carousel overflow-hidden pt-3">
                 <div className="container-fluid">
                     <Slider className="catagory-slider-2"  {...getSliderSettings(5, 5, 0)}>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Bracelates</div>
-                                <img src="assets/images/t-9.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Earrings</div>
-                                <img src="assets/images/t-10.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Necklaces</div>
-                                <img src="assets/images/t-11.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Bracelates</div>
-                                <img src="assets/images/t-12.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Bracelates</div>
-                                <img src="assets/images/t-13.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Bracelates</div>
-                                <img src="assets/images/t-9.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Bracelates</div>
-                                <img src="assets/images/t-10.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Bracelates</div>
-                                <img src="assets/images/t-9.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
-                        <div className="card border-0 rounded-4 overflow-hidden">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="title">Bracelates</div>
-                                <img src="assets/images/t-12.jpg" alt="" className="img-fluid" />
-                            </a>
-                        </div>
+                        {category.map((cat, idx) => (
+                            <div className="card border-0 rounded-4 overflow-hidden" key={cat.id || idx}>
+                                <Link href={`/shop/category/${cat.slug}`} className="card-img">
+                                    <div className="title">{cat.cat_title}</div>
+                                    <img
+                                        src={cat.thumbnail ? `${process.env.NEXT_PUBLIC_HOST_URL}${cat.thumbnail}` : ""}
+                                        alt={cat.cat_title}
+                                        className="img-fluid"
+                                    />
+                                </Link>
+                            </div>
+                        ))}
                     </Slider>
                 </div>
             </section>
@@ -655,308 +655,89 @@ export default function Home({ data }) {
             </section>
 
             {/* ++++++++++ */}
-            <section className="fluid-block collections pt-2">
+            <section className="fluid-block collections featured-products">
                 <div className="container">
                     <div className="title-div text-center">
                         <div className="left">
                             <h2 className="text-uppercase mb-0 fw-bold">Featured Products</h2>
-                            <small>Damet consectetur incididunt</small>
+                            <small>Best of the Collection</small>
                         </div>
                     </div>
                     <div className="row g-5">
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    <div className="badge dark">New Arrival</div>
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
+                        {featuredProducts.map((collection, index) => (
+                            <div className="col-lg-3 col-md-6 col-6" key={index}>
+                                <div className="card border-0 rounded-0">
+                                    <Link href={`/shop/${collection.slug}`} className="card-img" passHref>
+                                        <div className="badge primary">Popular</div>
+                                        <div className="icons-bar">
+                                            <div
+                                                className="icon active"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="left"
+                                                data-bs-title="Wishlist"
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    handleWishlistClick(collection.id);
+                                                }}
+                                            >
+                                                <i className="fa-light fa-heart" />
+                                            </div>
+                                            <div
+                                                className="icon"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="left"
+                                                data-bs-title="Share"
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    // Add share logic if needed
+                                                }}
+                                            >
+                                                <i className="fa-light fa-share-nodes" />
+                                            </div>
+                                            <div
+                                                className="icon"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="left"
+                                                data-bs-title="Add to Cart"
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    handleAddToCart(collection);
+                                                }}
+                                            >
+                                                <i className="fa-light fa-cart-shopping" />
+                                            </div>
                                         </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
+                                        <img
+                                            src={`${process.env.NEXT_PUBLIC_HOST_URL}${collection.featuredimage}`}
+                                            alt={collection.name}
+                                            className="img-fluid square-img"
+                                            width={300}
+                                            height={300}
+                                        />
+                                    </Link>
+                                    <div className="card-body p-0 py-4">
+                                        <div className="info">
+                                            <h3 className="fs-4">{collection.name}</h3>
+                                            <p>{collection.short_desc}</p>
                                         </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-1.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    { /* <div class="badge dark">New Arrival</div> */}
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
-                                        </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
-                                        </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-2.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
+                                        <div className="price d-flex align-items-center">
+                                            <div className="left d-flex align-items-center gap-2">
+                                                <span className="text-decoration-line-through text-muted">
+                                                    ₹{getOtherPrice(collection.mrp, collection.discounted_price, collection.product_type)}
+                                                </span>
+                                                <strong className="fs-5">
+                                                    ₹{getPrice(collection.mrp, collection.discounted_price, collection.product_type)}
+                                                </strong>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    <div className="badge primary">Popular</div>
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
-                                        </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
-                                        </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-3.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    <div className="badge dark">Best Seller</div>
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
-                                        </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
-                                        </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-4.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    { /* <div class="badge dark">Best Seller</div> */}
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
-                                        </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
-                                        </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-5.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    { /* <div class="badge dark">Best Seller</div> */}
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
-                                        </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
-                                        </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-6.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    <div className="badge dark">Best Seller</div>
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
-                                        </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
-                                        </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-7.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-3">
-                            <div className="card border-0 rounded-0">
-                                <a href="product-listing.html" className="card-img">
-                                    { /* <div class="badge dark">Best Seller</div> */}
-                                    <div className="icons-bar">
-                                        <div className="icon active" title="Wishlist">
-                                            <i className="fa-light fa-heart" />
-                                        </div>
-                                        <div className="icon" title="Share">
-                                            <i className="fa-light fa-share-nodes" />
-                                        </div>
-                                        <div className="icon" title="Add to Cart">
-                                            <i className="fa-light fa-cart-shopping" />
-                                        </div>
-                                    </div>
-                                    <img src="assets/images/p-8.jpg" alt="" className="img-fluid square-img" />
-                                </a>
-                                <div className="card-body p-0 py-4">
-                                    <div className="info">
-                                        <h3 className="fs-4">Imitation Ring</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor
-                                            incididunt</p>
-                                    </div>
-                                    <div className="price d-flex align-items-center">
-                                        <div className="left d-flex align-items-center gap-2">
-                                            <span className="text-decoration-line-through text-muted fs-5">₹2499</span>
-                                            <strong className="fs-5">₹1999</strong>
-                                        </div>
-                                        <div className="right">
-                                            <span className="text-success">In Stock</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        ))}
                     </div>
 
                     <div className="text-center mt-5">
-                        <a href="/shop" className="btn btn-primary-light">View All</a>
+                        <a href="/shop" className="btn btn-primary">Show more</a>
                     </div>
                 </div>
             </section>
@@ -1020,310 +801,83 @@ export default function Home({ data }) {
             {/* ++++++++++ */}
 
 
-            <section className="fluid-block collections category pb-5 pt-0">
+            <section className="fluid-block collections category bg-light">
                 <div className="container">
                     <div className="title-div text-center">
-                        <h2 className="text-uppercase mb-0 fw-bold">Top Brands</h2>
+                        <h2 className="text-uppercase mb-0 fw-bold">Recomended Items</h2>
                         <small>Lorem Dolor collections ammet</small>
                     </div>
-                    <Slider className="catagory-slider"  {...getSliderSettings(4, 4, 0)}>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge dark">New Arrival</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
+                    <Slider className="catagory-slider"   {...getSliderSettings(4, 4, 0)}>
+                        {topbrandproducts.map((product, index) => (
+                            <div className="card border-0 rounded-0" key={index}>
+                                <Link href={`/shop/${product.slug}`} className="card-img">
+                                    <div className="badge dark">New Arrival</div>
+                                    <div className="icons-bar">
+                                        <div
+                                            className="icon active"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
+                                            data-bs-title="Wishlist"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                handleWishlistClick(product.id);
+                                            }}
+                                        >
+                                            <i className="fa-light fa-heart" />
+                                        </div>
+                                        <div
+                                            className="icon"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
+                                            data-bs-title="Share"
+                                            onClick={e => {
+                                                e.preventDefault();
+
+                                            }}
+                                        >
+                                            <i className="fa-light fa-share-nodes" />
+                                        </div>
+                                        <div
+                                            className="icon"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
+                                            data-bs-title="Add to Cart"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                handleAddToCart(product);
+                                            }}
+                                        >
+                                            <i className="fa-light fa-cart-shopping" />
+                                        </div>
                                     </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
+                                    <img
+                                        src={`${process.env.NEXT_PUBLIC_HOST_URL}${product.featuredimage}`}
+                                        alt={product.name}
+                                        className="img-fluid square-img"
+                                        width={300}
+                                        height={300}
+                                    />
+                                </Link>
+                                <div className="card-body p-0 py-4">
+                                    <div className="info">
+                                        <Link href={`/shop/${product.slug}`}>
+                                            <h3 className="fs-4">{product.name}</h3>
+                                        </Link>
+                                        <p>{product.short_desc}</p>
                                     </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-14.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Colections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">New Arrival</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-15.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Pendant Collections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge primary">Popular</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-16.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Earrings Colections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
+                                    <div className="price d-flex align-items-center">
+                                        <div className="left d-flex align-items-center gap-2">
+                                            <span className="text-decoration-line-through text-muted">
+                                                ₹{getOtherPrice(product.mrp, product.discounted_price, product.product_type)}
+                                            </span>
+                                            <strong className="fs-5">
+                                                ₹{getPrice(product.mrp, product.discounted_price, product.product_type)}
+                                            </strong>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge dark">New Arrival</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-17.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Ring Collections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">New Arrival</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-15.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">New Arrival</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-14.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge dark">New Arrival</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-16.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge primary">Best Price</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-15.jpg" alt="" className="img-fluid" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">Best Selling</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-17.jpg" alt="" className="img-fluid" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </Slider>
                     <div className="text-center mt-5">
                         <a href="/shop" className="btn btn-primary-light">View All</a>
@@ -1347,303 +901,76 @@ export default function Home({ data }) {
                         <small>Lorem Dolor collections ammet</small>
                     </div>
                     <Slider className="catagory-slider"   {...getSliderSettings(4, 4, 0)}>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge dark">New Arrival</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
+                        {recomendedproducts.map((product, index) => (
+                            <div className="card border-0 rounded-0" key={index}>
+                                <Link href={`/shop/${product.slug}`} className="card-img">
+                                    <div className="badge dark">New Arrival</div>
+                                    <div className="icons-bar">
+                                        <div
+                                            className="icon active"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
+                                            data-bs-title="Wishlist"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                handleWishlistClick(product.id);
+                                            }}
+                                        >
+                                            <i className="fa-light fa-heart" />
+                                        </div>
+                                        <div
+                                            className="icon"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
+                                            data-bs-title="Share"
+                                            onClick={e => {
+                                                e.preventDefault();
+
+                                            }}
+                                        >
+                                            <i className="fa-light fa-share-nodes" />
+                                        </div>
+                                        <div
+                                            className="icon"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="left"
+                                            data-bs-title="Add to Cart"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                handleAddToCart(product);
+                                            }}
+                                        >
+                                            <i className="fa-light fa-cart-shopping" />
+                                        </div>
                                     </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
+                                    <img
+                                        src={`${process.env.NEXT_PUBLIC_HOST_URL}${product.featuredimage}`}
+                                        alt={product.name}
+                                        className="img-fluid square-img"
+                                        width={300}
+                                        height={300}
+                                    />
+                                </Link>
+                                <div className="card-body p-0 py-4">
+                                    <div className="info">
+                                        <Link href={`/shop/${product.slug}`}>
+                                            <h3 className="fs-4">{product.name}</h3>
+                                        </Link>
+                                        <p>{product.short_desc}</p>
                                     </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-2.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Colections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">New Arrival</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-3.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Pendant Collections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge primary">Popular</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-5.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Earrings Colections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
+                                    <div className="price d-flex align-items-center">
+                                        <div className="left d-flex align-items-center gap-2">
+                                            <span className="text-decoration-line-through text-muted">
+                                                ₹{getOtherPrice(product.mrp, product.discounted_price, product.product_type)}
+                                            </span>
+                                            <strong className="fs-5">
+                                                ₹{getPrice(product.mrp, product.discounted_price, product.product_type)}
+                                            </strong>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge dark">New Arrival</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-17.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Ring Collections</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">New Arrival</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-15.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-5">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">New Arrival</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-14.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                <div className="badge dark">New Arrival</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-6.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge primary">Best Price</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-7.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card border-0 rounded-0">
-                            <a href="product-listing.html" className="card-img">
-                                { /* <div class="badge dark">Best Selling</div> */}
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist">
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img src="assets/images/t-8.jpg" alt="" className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-0 py-4">
-                                <div className="info">
-                                    <h3 className="fs-4">Necklace Collection</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    </p>
-                                </div>
-                                <div className="price d-flex align-items-center">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <strong className="fs-5">₹1999</strong>
-                                        <span className="text-decoration-line-through text-muted">₹2499</span>
-                                    </div>
-                                    <div className="right">
-                                        <span className="text-success">In Stock</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </Slider>
                     <div className="text-center mt-5">
                         <a href="/shop" className="btn btn-primary-light">View All</a>
