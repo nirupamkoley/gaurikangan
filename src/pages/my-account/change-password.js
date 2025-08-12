@@ -103,7 +103,7 @@ export default function ChangePassword({ data }) {
                                         {/* Title end */}
                                         <form className="p-4 bg-light rounded-0 border">
                                             <div className="row g-3">
-                                                <div className="col-lg-6">
+                                                <div className="col-lg-12">
                                                     <div className="form-floating">
                                                         <input type="password" className="form-control" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
                                                         <label htmlFor="Name">Old Password</label>

@@ -133,30 +133,9 @@ export default function Profile({ data }) {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="field-item mb-5">
-                                <div className="d-flex align-items-center gap-4">
-                                    <div className="card-title fs-5 mb-2 fs-sm">Your Gender</div>
-                                    { /* Title end */ }
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={true} />
-                                        <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                          Male
-                                        </label>
-                                      </div>
-                                      <div className="form-check">
-                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                                        <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                          Female
-                                        </label>
-                                      </div>
-                                </div>
-                            </div>
                                     <div className="d-flex align-items-center gap-3">
                                         <div className="field-item mb-4 w-100">
-                                            <div className="zd-flex align-items-center gap-3">
-                                                     <div className="card-title fw-bold fs-5 mb-4">Email Address</div>
-                                               
+                                            <div className="d-flex align-items-center gap-3">
                                                 <div className="form-floating w-100">
                                                     <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
                                                     <label htmlFor="floatingInputValue">Email Address</label>
@@ -164,9 +143,7 @@ export default function Profile({ data }) {
                                             </div>
                                         </div>
                                         <div className="field-item mb-4 w-100">
-                                            <div className="zd-flex align-items-center gap-3">
-                                                    <div className="card-title fw-bold fs-5 mb-4">Mobile Number</div>
-
+                                            <div className="d-flex align-items-center gap-3">
                                                 <div className="form-floating w-100">
                                                     <input type="email" className="form-control" value={contact} onChange={(e) => setContact(e.target.value)} />
                                                     <label htmlFor="floatingInputValue">Mobile Number</label>
@@ -174,8 +151,7 @@ export default function Profile({ data }) {
                                             </div>
                                         </div>
                                         <div className="field-item mb-4 w-100">
-                                            <div className="zd-flex align-items-center gap-3">
-                                                   <div className="card-title fw-bold fs-5 mb-4">Alternative Number</div>
+                                            <div className="d-flex align-items-center gap-3">
                                                 <div className="form-floating w-100">
                                                     <input type="email" className="form-control" value={alt_contact} onChange={(e) => setAltContact(e.target.value)} />
                                                     <label htmlFor="floatingInputValue">Alternative Number</label>

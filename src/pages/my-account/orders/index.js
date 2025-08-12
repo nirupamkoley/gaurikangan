@@ -68,13 +68,13 @@ export default function Orders({ data }) {
                                         <div className="d-flex align-items-center gap-3 justify-content-between mb-4">
                                             <div className="card-title fw-bold fs-5 mb-0">My Orders</div>
                                             <div className="input-group w-50 order-item-search">
-                                                <input type="text" className="form-control" placeholder="Search your orders here" aria-label="Search" aria-describedby="button-addon2" />
+                                                {/* <input type="text" className="form-control" placeholder="Search your orders here" aria-label="Search" aria-describedby="button-addon2" />
                                                 <button className="btn btn-outline-secondary" type="button" id="button-addon2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={18} height={18} color="#000000" fill="none">
                                                         <path d="M17.5 17.5L22 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                         <path d="M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                                                     </svg>
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </div>
                                         {/* Title end */}

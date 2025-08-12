@@ -113,7 +113,7 @@ export default function Wishlist({ data }) {
                                                             </div>
                                                             <div className="col-lg-10 col-sm-9 col-8">
                                                                 <div className="card-title fw-bold mb-1 text-dark d-flex align-items-center justify-content-between">
-                                                                    <Link href={`/shop/${item.product?.slug}`} className="left fs-5 text-dark">
+                                                                    <Link href={`/shop/${item.product?.slug}`} className="left fs-5">
                                                                         {item.product?.name}
                                                                     </Link>
                                                                     <div className="right"><a href="#" className="text-muted" onClick={() => handleRemoveWishlistClick(item?.item_id)}><i className="bi bi-trash" /></a></div>

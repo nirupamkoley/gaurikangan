@@ -177,7 +177,7 @@ export default function Address({ data }) {
                                         </div>
                                         {/* Title end */}
                                         <div className="p-4 bg-light rounded-0 border">
-                                            <div className="card-title fw-bold fs-5 fs-sm text-uppercase mb-3">Edit Address </div>
+                                            <div className="card-title fw-bold fs-5 fs-sm text-uppercase mb-3">Update Address Info</div>
                                             <div className="row g-3">
                                                 <div className="col-lg-6">
                                                     <div className="form-floating">
