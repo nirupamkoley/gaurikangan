@@ -175,7 +175,7 @@ export default function Shop({ data }) {
                                 <div className="fs-5 ms-2 text-muted">({totalProductCount} results)</div>
                             </div>
                             <div className="right">
-                                  {/* Filter  */}
+                                {/* Filter  */}
                                 <div className="filter-div d-flex justify-content-between align-items-center mb-0 gap-3">
                                     {/* <div className="left d-flex justify-content-between align-items-center gap-1">
                                         <label htmlFor="inputGroupSelect01" className="form-label w-50 mb-0">Sort By:</label>
@@ -239,7 +239,7 @@ export default function Shop({ data }) {
                                     </div>
                                 </div> */}
 
-                               
+
                                 {/* Product */}
                                 {filterCategories.map((category) => (
                                     <div className="accordion-item" key={category.id}>
@@ -291,68 +291,65 @@ export default function Shop({ data }) {
 
 
                     <div className="collections p-listing">
-                <div className="row">
-                   
-                    {products.map((product, index) => (   
-                    <div className="col-lg-3 col-md-4 col-sm-4 col-6"  key={index}>
-                        <div className="card border-0 rounded-5 shadow-lg overflow-hidden">
-                            <a href={`/shop/${product.slug}`} className="card-img">
-                                <div className="badge dark zzprimary">New Arrival</div>
-                                <div className="icons-bar">
-                                    <div className="icon active" title="Wishlist"  onClick={() => handleWishlistClick(product.id)}>
-                                        <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="icon" title="Share">
-                                        <i className="fa-light fa-share-nodes" />
-                                    </div>
-                                    <div className="icon" title="Add to Cart">
-                                        <i className="fa-light fa-cart-shopping" />
-                                    </div>
-                                </div>
-                                <img 
-                                // src="images/t-1.jpg" 
-                                // alt="" 
+                        <div className="row">
 
-                                src={`${process.env.NEXT_PUBLIC_HOST_URL}${product.featuredimage}`}
-                                alt={product.name}
-                                className="img-fluid square-img" />
-                            </a>
-                            <div className="card-body p-4 py-4">
-                                <div className="info">
-                                    <a href={`/shop/${product.slug}`} className="item-title mb-2">{product.name}</a>
-                                    <div className="d-flex align-items-center justify-content-between py-2 border-bottom mb-3">
-                                        <div className="ratings d-flex align-items-center gap-2">
-                                            <span><i className="bi bi-star-fill" /> 4.5</span> <a href="#" className="text-muted">548 Reviews</a>
-                                        </div>
-                                        <div className="text-success pt-2">
-                                            
-                                             {product.stock > 0 ? (
-                                                        <span className="text-success">In Stock</span>
-                                                    ) : product.stock_status == 1 ? (
-                                                        <span className="text-success">Preorder Available</span>
-                                                    ) : (
-                                                        <span className="text-danger">Out of Stock</span>
-                                                    )}
-                                            
+                            {products.map((product, index) => (
+                                <div className="col-lg-3 col-md-4 col-sm-4 col-6" key={index}>
+                                    <div className="card border-0 rounded-5 shadow-lg overflow-hidden">
+                                        <a href={`/shop/${product.slug}`} className="card-img">
+                                            <div className="badge dark zzprimary">New Arrival</div>
+                                            <div className="icons-bar">
+                                                <div className="icon active" title="Wishlist" onClick={() => handleWishlistClick(product.id)}>
+                                                    <i className="fa-light fa-heart" />
+                                                </div>
+                                                <div className="icon" title="Share">
+                                                    <i className="fa-light fa-share-nodes" />
+                                                </div>
+                                                <div className="icon" title="Add to Cart">
+                                                    <i className="fa-light fa-cart-shopping" />
+                                                </div>
                                             </div>
-                                    </div>
-                                </div>
-                                <div className="price d-flex align-items-center justify-content-between">
-                                    <div className="left d-flex align-items-center gap-2">
-                                        <span className="text-decoration-line-through text-muted fs-5"> ₹{getOtherPrice(product.mrp, product.discounted_price, product.product_type)}</span>
-                                        <strong className="fs-5">  ₹{getPrice(product.mrp, product.discounted_price, product.product_type)}</strong>
-                                    </div>
-                                    <div className="right">
-                                        <a href={`/shop/${product.slug}`} className="btn btn-success">Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     
-                    ))}
+                                            <img
+                                                src={`${process.env.NEXT_PUBLIC_HOST_URL}${product.featuredimage}`}
+                                                alt={product.name}
+                                                className="img-fluid square-img" />
+                                        </a>
+                                        <div className="card-body p-4 py-4">
+                                            <div className="info">
+                                                <a href={`/shop/${product.slug}`} className="item-title mb-2">{product.name}</a>
+                                                <div className="d-flex align-items-center justify-content-between py-2 border-bottom mb-3">
+                                                    <div className="ratings d-flex align-items-center gap-2">
+                                                        <span><i className="bi bi-star-fill" /> 4.5</span> <a href="#" className="text-muted">548 Reviews</a>
+                                                    </div>
+                                                    <div className="text-success pt-2">
 
-                    {/* 
+                                                        {product.stock > 0 ? (
+                                                            <span className="text-success">In Stock</span>
+                                                        ) : product.stock_status == 1 ? (
+                                                            <span className="text-success">Preorder Available</span>
+                                                        ) : (
+                                                            <span className="text-danger">Out of Stock</span>
+                                                        )}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="price d-flex align-items-center justify-content-between">
+                                                <div className="left d-flex align-items-center gap-2">
+                                                    <span className="text-decoration-line-through text-muted fs-5"> ₹{getOtherPrice(product.mrp, product.discounted_price, product.product_type)}</span>
+                                                    <strong className="fs-5">  ₹{getPrice(product.mrp, product.discounted_price, product.product_type)}</strong>
+                                                </div>
+                                                <div className="right">
+                                                    <a href={`/shop/${product.slug}`} className="btn btn-success">Buy Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            ))}
+
+                            {/* 
 
                     <div className="col-lg-3 col-md-4 col-sm-4 col-6">
                         <div className="card border-0 rounded-5 shadow-lg overflow-hidden">
@@ -398,14 +395,14 @@ export default function Shop({ data }) {
 
 
 
-                    
-
-                </div>
 
 
-            </div>
-                   
-                    
+                        </div>
+
+
+                    </div>
+
+
                 </div>
             </section>
             <section className="fluid-block features-2 text-center py-5">

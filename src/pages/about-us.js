@@ -64,52 +64,6 @@ export default function AboutUs() {
                     </div> */}
                 </div>
             </section>
-            <section className="fluid-block features-2 text-center py-5">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-3 col-md-3 col-sm-6 col-6 border-end">
-                            <img
-                                src="/assets/images/royaldrape.png"
-                                alt="Free Shipping"
-                                width={100}
-                                height={100}
-                            />
-                            <h4 className="mt-3">The Royal Drape Collection</h4>
-                            <small>Crafted for the Queen in You</small>
-                        </div>
-                        <div className="col-lg-3 col-lg-3 col-md-3 col-sm-6 col-6 border-end">
-                            <img
-                                src="/assets/images/tradition.png"
-                                alt="Custom tailoring"
-                                width={100}
-                                height={100}
-                            />
-                            <h4 className="mt-3">Tradition Reimagined</h4>
-                            <small>New Chapter in Ethnic Elegance</small>
-                        </div>
-                        <div className="col-lg-3 col-md-3 col-sm-6 col-6 border-end">
-                            <img
-                                src="/assets/images/worldwide1.png"
-                                alt="Worldwide shipping"
-                                width={100}
-                                height={100}
-                            />
-                            <h4 className="mt-3">Worldwide shipping</h4>
-                            <small>Get Delivery all over World</small>
-                        </div>
-                        <div className="col-lg-3 col-md-3 col-sm-6 col-6">
-                            <img
-                                src="/assets/images/support1.png"
-                                alt="Online Customer Support"
-                                width={100}
-                                height={100}
-                            />
-                            <h4 className="mt-3">Online Customer Support</h4>
-                            <small>09:00 am-9:00 pm Hours Monday-Sunday</small>
-                        </div>
-                    </div>
-                </div>
-            </section>
             {/* Feature 2 end */}
         </div>
     );
