@@ -3896,4 +3896,42 @@ footer .footer-bottom .copyright {
   .login h1 {
     font-size: 1.2rem;
   }
+}
+
+.filter-box.sticky-top {
+  top: 100px;
+}
+
+.slick-track {
+  display: flex !important;
+}
+
+.p-details .slick-slide {
+  margin: 0 !important;
+  aspect-ratio: 1/1 !important;
+}
+.p-details .slick-slide img {
+  width: 100% !important;
+  height: auto !important;
+  margin: auto;
+}
+.p-details .thumbnail-slider {
+  width: 100% !important;
+  height: 100% !important;
+  margin-top: 1rem !important;
+}
+.p-details .thumbnail-slider img {
+  width: 100% !important;
+  height: 100% !important;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.p-details .thumbnail-slider .slick-slide {
+  padding: 0 5px !important;
+}
+.p-details .slick-prev {
+  left: 15px;
+}
+.p-details .slick-next {
+  right: 15px;
 }/*# sourceMappingURL=style.css.map */

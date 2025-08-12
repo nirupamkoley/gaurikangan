@@ -1807,3 +1807,16 @@ input { background-color: #EEEEEE; border: none; padding: 12px 15px; margin: 8px
     h1 { font-size: 1.2rem;}
 }
 }
+.filter-box.sticky-top{ top: 100px;}
+.slick-track{
+    display: flex !important;
+}
+.p-details{
+    .slick-slide{ margin: 0 !important; aspect-ratio: 1/1 !important;}
+    .slick-slide img{ width: 100% !important; height: auto !important; margin: auto;}
+    .thumbnail-slider{ width: 100% !important; height: 100% !important; margin-top: 1rem !important;}
+    .thumbnail-slider img{ width: 100% !important; height: 100% !important; object-fit: cover;}
+    .thumbnail-slider .slick-slide{ padding: 0 5px !important;}
+    .slick-prev{ left: 15px;}
+    .slick-next{ right: 15px;}
+}
