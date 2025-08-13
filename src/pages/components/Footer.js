@@ -85,7 +85,7 @@ export default function Footer() {
                                     </a></li>
                                 </ul>
                             </div>
-                            <div className="copyright">© 2025 Byrappa. All Rights Reserved</div>
+                            <div className="copyright">© 2025 gouri-kangan. All Rights Reserved</div>
                         </div>
                     </div>
                 </div>

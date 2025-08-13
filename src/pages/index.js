@@ -49,7 +49,6 @@ export default function Home({ data }) {
         infinite: true,
         speed: 800,
         margin: inslm,
-        slidesToShow: 2,
         slidesToShow: sldnm,
         slidesToScroll: sldnm2,
         dots: true,
@@ -58,7 +57,7 @@ export default function Home({ data }) {
                 breakpoint: 1024,
                 settings: {
                     slidesToShow: 4,
-                    slidesToScroll: 1,
+                    slidesToScroll: 4,
                     initialSlide: inslm,
                 }
             },
@@ -66,7 +65,7 @@ export default function Home({ data }) {
                 breakpoint: 992,
                 settings: {
                     slidesToShow: 4,
-                    slidesToScroll: 1,
+                    slidesToScroll: 4,
                     initialSlide: inslm,
                 }
             },
@@ -74,7 +73,7 @@ export default function Home({ data }) {
                 breakpoint: 780,
                 settings: {
                     slidesToShow: 3,
-                    slidesToScroll: 2,
+                    slidesToScroll: 3,
                     initialSlide: 2,
                 },
             },
@@ -82,7 +81,7 @@ export default function Home({ data }) {
                 breakpoint: 580,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 1,
+                    slidesToScroll: 2,
                     initialSlide: 2,
                 },
             },

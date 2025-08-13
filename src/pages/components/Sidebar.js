@@ -23,7 +23,7 @@ export default function SideBar({ userData = { fname: '', lname: '', contact: ''
                                         {/* <Image src="/assets/images/profile-pic-male.svg" className="card-img-top" alt="byrappa" width={50} height={50} /> */}
 
                                     <div className="zprofile-pic">
-                                        <Image src="/assets/images/profile-pic-male.svg" className="zcard-img-top" alt="byrappa" width={50} height={50} />
+                                        <Image src="/assets/images/profile-pic-male.svg" className="zcard-img-top" alt="gouri-kangan" width={50} height={50} />
                                     </div>
                                     <div className="details">
                                         <h5 className="card-title mb-0 fw-bold">{userData.fname ? userData.fname : ''} {userData.lname ? userData.lname : ''}</h5>
