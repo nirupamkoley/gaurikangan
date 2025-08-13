@@ -55,7 +55,6 @@ export default function Header() {
                         <div className="d-flex align-items-center justify-content-between">
                             <div className="left">
                                 <ul className="d-flex gap-2 align-items-center">
-                                    <li><span>Free shipping and returns over ₹499</span></li>
                                     <li>
                                         <span className="d-flex align-items-center">
                                             <i className="fa-light fa-phone-volume" />
