@@ -22,7 +22,7 @@ export default function Footer() {
                 <div className="footer-top">
                     <div className="container">
                         <div className="row g-5">
-                            <div className="col-lg-3 col-md-6 col-sm-6">
+                            <div className="col-lg-3 col-md-6 col-6">
                                 <div className="link-wrap">
                                     <h5>Useful links</h5>
                                     <ul>
@@ -33,7 +33,7 @@ export default function Footer() {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-lg-3 col-md-6 col-sm-6">
+                            <div className="col-lg-3 col-md-6 col-6">
                                 <div className="link-wrap">
                                     <h5>Policies</h5>
                                     <ul>
@@ -44,7 +44,7 @@ export default function Footer() {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-lg-4 col-md-6 col-sm-6">
+                            <div className="col-lg-4 col-md-6 col-6">
                                 <div className="link-wrap">
                                     <h5>Contact Us</h5>
                                     <ul>
@@ -54,7 +54,7 @@ export default function Footer() {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-lg-2 col-md-6 col-sm-6">
+                            <div className="col-lg-2 col-md-6 col-6">
                                 <div className="link-wrap">
                                     <h5>Follow Us On</h5>
                                     <ul>

@@ -42,29 +42,49 @@ export default function Home({ data }) {
     const [featuredProducts, setFeaturedProducts] = React.useState(data.randomSraeeProducts);
     const [category, setCategory] = React.useState(data.categories);
 
-    var settings = {
+
+    const getSliderSettings = (sldnm, sldnm2, inslm) => ({
         dots: true,
-        infinite: true,
         arrows: true,
-        speed: 300,
-        slidesToShow: 1,
-        slidesToScroll: 1,
+        infinite: true,
+        speed: 800,
+        margin: inslm,
+        slidesToShow: 2,
+        slidesToShow: sldnm,
+        slidesToScroll: sldnm2,
+        dots: true,
         responsive: [
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
-                    infinite: true,
-                    dots: true,
+                    initialSlide: inslm,
                 }
             },
             {
-                breakpoint: 600,
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    initialSlide: inslm,
+                }
+            },
+            {
+                breakpoint: 780,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 2,
+                    initialSlide: 2,
+                },
+            },
+            {
+                breakpoint: 580,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
-                }
+                    initialSlide: 2,
+                },
             },
             {
                 breakpoint: 480,
@@ -75,43 +95,6 @@ export default function Home({ data }) {
                     arrows: false,
                 }
             }
-        ]
-    };
-
-
-    // slick category 2 test start
-
-
-
-
-
-
-    const getSliderSettings = (sldnm, sldnm2, inslm) => ({
-        dots: true,
-        arrows: false,
-        infinite: true,
-        speed: 200,
-        margin: inslm,
-        // slidesToShow: 5,
-        slidesToShow: sldnm,
-        slidesToScroll: sldnm2,
-        responsive: [
-            {
-                breakpoint: 780,
-                settings: {
-                    slidesToShow: sldnm2,
-                    slidesToScroll: 1,
-                    initialSlide: 2,
-                },
-            },
-            {
-                breakpoint: 580,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 2,
-                },
-            },
         ],
     });
 
@@ -232,16 +215,12 @@ export default function Home({ data }) {
             </section>
             {/* Banner end */}
 
-
-
-
-
             {/* ++++++++++ */}
 
             <section className="fluid-block features py-5">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-3">
+                        <div className="col-lg-3 col-md-6 col-6">
                             <div className="d-flex align-items-center gap-3">
                                 <div className="left">
                                     <div className="icon">
@@ -254,7 +233,7 @@ export default function Home({ data }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col-lg-3 col-md-6 col-6">
                             <div className="d-flex align-items-center gap-3">
                                 <div className="left">
                                     <div className="icon">
@@ -267,7 +246,7 @@ export default function Home({ data }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col-lg-3 col-md-6 col-6">
                             <div className="d-flex align-items-center gap-3">
                                 <div className="left">
                                     <div className="icon">
@@ -280,7 +259,7 @@ export default function Home({ data }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col-lg-3 col-md-6 col-6">
                             <div className="d-flex align-items-center gap-3">
                                 <div className="left">
                                     <div className="icon">
@@ -317,7 +296,7 @@ export default function Home({ data }) {
                     <div className="tab-content" id="pills-tabContent">
                         <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabIndex={0}>
                             <div className="row g-5">
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">New Arrival</div>
@@ -353,7 +332,7 @@ export default function Home({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             { /* <div class="badge dark">New Arrival</div> */}
@@ -389,7 +368,7 @@ export default function Home({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             <div className="badge primary">Popular</div>
@@ -425,7 +404,7 @@ export default function Home({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">Best Seller</div>
@@ -465,7 +444,7 @@ export default function Home({ data }) {
                         </div>
                         <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabIndex={0}>
                             <div className="row g-5">
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">New Arrival</div>
@@ -501,7 +480,7 @@ export default function Home({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             { /* <div class="badge dark">New Arrival</div> */}
@@ -537,7 +516,7 @@ export default function Home({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             <div className="badge primary">Popular</div>
@@ -573,7 +552,7 @@ export default function Home({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-6 col-6">
                                     <div className="card border-0 rounded-0">
                                         <Link href="product-listing.html" className="card-img">
                                             <div className="badge dark">Best Seller</div>
@@ -644,10 +623,10 @@ export default function Home({ data }) {
             <section className="fluid-block offer-block pt-5">
                 <div className="container">
                     <div className="row g-5">
-                        <div className="col-lg-6">
+                        <div className="col-lg-6 col-md-6 col-12">
                             <Link href="#" className="d-block rounded-4 overflow-hidden"><img src="assets/images/offer-3.jpg" className="img-fluid" /></Link>
                         </div>
-                        <div className="col-lg-6">
+                        <div className="col-lg-6 col-md-6 col-12">
                             <Link href="#" className="d-block rounded-4 overflow-hidden"><img src="assets/images/offer-4.jpg" className="img-fluid" /></Link>
                         </div>
                     </div>
