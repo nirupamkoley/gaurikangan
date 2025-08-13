@@ -64,9 +64,9 @@ export default function SearchPage() {
                 setPageNo((prevPage) => prevPage + 1);
             }
         };
-    
+
         window.addEventListener("scroll", handleScroll);
-    
+
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
@@ -89,50 +89,55 @@ export default function SearchPage() {
             <h1>Search Results for {q}</h1>
             {products.length > 0 ? (
                 <>
-                    <div className="collections" style={{ minHeight: "100vh" }}>
-                        <div className="row g-5">
+                    <div className="collections p-listing">
+                        <div className="row">
                             {products.map((product, index) => (
-                                <div className="col-lg-3" key={index}>
-                                    <div className="card border-0 rounded-0">
-                                        <div
-                                            className="wishlist-icon"
-                                            title="Wishlist"
-                                            onClick={() => handleWishlistClick(product.id)}
-                                        >
-                                            <i className="fa-regular fa-heart" />
-                                        </div>
+                                <div className="col-lg-3 col-md-4 col-sm-4 col-6" key={index}>
+                                    <div className="card border-0 rounded-5 shadow-lg overflow-hidden">
                                         <a href={`/shop/${product.slug}`} className="card-img">
+                                            <div className="badge dark zzprimary">New Arrival</div>
+                                            <div className="icons-bar">
+                                                <div className="icon active" title="Wishlist" onClick={(e) => { e.preventDefault(); handleWishlistClick(product.id); }}>
+                                                    <i className="fa-light fa-heart" />
+                                                </div>
+                                                <div className="icon" title="Share">
+                                                    <i className="fa-light fa-share-nodes" />
+                                                </div>
+                                                <div className="icon" title="Add to Cart">
+                                                    <i className="fa-light fa-cart-shopping" />
+                                                </div>
+                                            </div>
                                             <img
                                                 src={`${process.env.NEXT_PUBLIC_HOST_URL}${product.featuredimage}`}
                                                 alt={product.name}
-                                                className="img-fluid"
-                                                // width={500} // Adjust width as needed
-                                                // height={500} // Adjust height as needed
+                                                className="img-fluid square-img"
                                             />
                                         </a>
-                                        <div className="card-body p-0 py-4">
+                                        <div className="card-body p-4 py-4">
                                             <div className="info">
-                                                <h3 className="fs-4">{product.name}</h3>
+                                                <a href={`/shop/${product.slug}`} className="item-title mb-2">{product.name}</a>
+                                                <div className="d-flex align-items-center justify-content-between py-2 border-bottom mb-3">
+                                                    <div className="ratings d-flex align-items-center gap-2">
+                                                        <span><i className="bi bi-star-fill" /> 4.5</span> <a href="#" className="text-muted">548 Reviews</a>
+                                                    </div>
+                                                    <div className="text-success pt-2">
+                                                        {product.stock > 0 ? (
+                                                            <span className="text-success">In Stock</span>
+                                                        ) : product.stock_status == 1 ? (
+                                                            <span className="text-success">Preorder Available</span>
+                                                        ) : (
+                                                            <span className="text-danger">Out of Stock</span>
+                                                        )}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="price d-flex align-items-center">
+                                            <div className="price d-flex align-items-center justify-content-between">
                                                 <div className="left d-flex align-items-center gap-2">
-                                                    <strong className="fs-4">
-                                                        ₹{getPrice(product.mrp, product.discounted_price, product.product_type)}
-                                                    </strong>
-                                                    {product.discounted_price && (
-                                                        <span className="text-decoration-line-through text-muted">
-                                                            ₹{getOtherPrice(product.mrp, product.discounted_price, product.product_type)}
-                                                        </span>
-                                                    )}
+                                                    <span className="text-decoration-line-through text-muted fs-5"> ₹{getOtherPrice(product.mrp, product.discounted_price, product.product_type)}</span>
+                                                    <strong className="fs-5">  ₹{getPrice(product.mrp, product.discounted_price, product.product_type)}</strong>
                                                 </div>
                                                 <div className="right">
-                                                    {product.stock > 0 ? (
-                                                        <span className="text-success">In Stock</span>
-                                                    ) : product.stock_status == 1 ? (
-                                                        <span className="text-success">Preorder Available</span>
-                                                    ) : (
-                                                        <span className="text-danger">Out of Stock</span>
-                                                    )}
+                                                    <a href={`/shop/${product.slug}`} className="btn btn-success">Buy Now</a>
                                                 </div>
                                             </div>
                                         </div>
