@@ -3834,6 +3834,9 @@ footer .footer-bottom .copyright {
   .breadcrumb {
     padding: 0 !important;
   }
+  .newsletter .col-lg-7 .d-flex.flex-wrap.justify-content-lg-end.gap-5 {
+    gap: 1rem !important;
+  }
 }
 @media only screen and (max-width: 640px) {
   .footer-bottom .d-flex.justify-content-between.align-items-center {
